@@ -19,5 +19,17 @@ return {
 		vim.keymap.set("n", "<C-l>", function()
 			ui.nav_file(4)
 		end)
+		vim.keymap.set("n", "<leader><C-h>", function()
+			ui.replace_at(1)
+		end)
+		vim.keymap.set("n", "<leader><C-t>", function()
+			ui.replace_at(2)
+		end)
+		vim.keymap.set("n", "<leader><C-n>", function()
+			ui.replace_at(3)
+		end)
+		vim.keymap.set("n", "<leader><C-s>", function()
+			ui.replace_at(4)
+		end)
 	end,
 }
