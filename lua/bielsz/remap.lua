@@ -1,20 +1,46 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+local function getFileTypeComment()
+	local filetype = vim.bo.filetype
+	local comment = "//"
+	if filetype == "lua" then
+		comment = "--"
+	end
+	if filetype == "elixir" or filetype == "python" or filetype == "bash" or filetype == "sh" then
+		comment = "#"
+	end
+	return comment
+end
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<CR>")
-vim.keymap.set("n", "<leader>ma", "<cmd>Mason<CR>")
+vim.keymap.set("n", "n", "nzzv")
+vim.keymap.set("n", "N", "Nzzv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<leader>rr", ":%s/\\<<C-r><C-w>\\>//g<left><left>")
-vim.keymap.set("v", "<leader>;", "I// <Esc><Left><Left>")
-vim.keymap.set("n", "<leader>Q", "<C-q>")
+vim.keymap.set("x", "<leader>p", [["_dP]])
 
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>;", function()
+	return "_i" .. getFileTypeComment() .. " <Esc>"
+end, { expr = true })
+vim.keymap.set("v", "<leader>;", function()
+	return "I" .. getFileTypeComment() .. " <Esc>"
+end, { expr = true })
+
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration)
+
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
+vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<CR>")
+vim.keymap.set("n", "<leader>ma", "<cmd>Mason<CR>")
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
