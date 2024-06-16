@@ -12,5 +12,3 @@ autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
-
-vim.g.have_nerd_font = true
