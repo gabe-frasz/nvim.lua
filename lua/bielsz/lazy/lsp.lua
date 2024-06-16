@@ -18,22 +18,18 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
-				local map = function(keys, func, desc)
-					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+				local map = function(keys, func)
+					vim.keymap.set("n", keys, func, { buffer = event.buf })
 				end
 
 				local tl_builtin = require("telescope.builtin")
 				--  To jump back, press <C-t>.
-				map("gd", tl_builtin.lsp_definitions, "[G]oto [D]efinition")
-				map("gr", tl_builtin.lsp_references, "[G]oto [R]eferences")
-				map("gI", tl_builtin.lsp_implementations, "[G]oto [I]mplementation")
-				map("<leader>D", tl_builtin.lsp_type_definitions, "Type [D]efinition")
-				map("<leader>ds", tl_builtin.lsp_document_symbols, "[D]ocument [S]ymbols")
-				map("<leader>ws", tl_builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-				map("K", vim.lsp.buf.hover, "Hover Documentation")
-				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+				map("<leader>gd", tl_builtin.lsp_definitions)
+				map("<leader>gr", tl_builtin.lsp_references)
+				map("<leader>gI", tl_builtin.lsp_implementations)
+				map("<leader>D", tl_builtin.lsp_type_definitions)
+				map("<leader>ds", tl_builtin.lsp_document_symbols)
+				map("<leader>ws", tl_builtin.lsp_dynamic_workspace_symbols)
 
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 				if client and client.server_capabilities.documentHighlightProvider then
@@ -62,7 +58,7 @@ return {
 				if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-					end, "[T]oggle Inlay [H]ints")
+					end)
 				end
 			end,
 		})
