@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local function getFileTypeComment()
+local function getFileTypeComment(before, after)
 	local filetype = vim.bo.filetype
 	local comment = "//"
 	if filetype == "lua" then
@@ -10,7 +10,7 @@ local function getFileTypeComment()
 	if filetype == "elixir" or filetype == "python" or filetype == "bash" or filetype == "sh" then
 		comment = "#"
 	end
-	return comment
+	return before .. comment .. " " .. after
 end
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -24,10 +24,10 @@ vim.keymap.set("n", "<leader>rr", ":%s/\\<<C-r><C-w>\\>//g<left><left>")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 vim.keymap.set("n", "<leader>;", function()
-	return "_i" .. getFileTypeComment() .. " <Esc>"
+	return getFileTypeComment("_i", "<Esc>")
 end, { expr = true })
 vim.keymap.set("v", "<leader>;", function()
-	return "I" .. getFileTypeComment() .. " <Esc>"
+	return getFileTypeComment("_i", "<Esc>")
 end, { expr = true })
 
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
