@@ -25,6 +25,11 @@ return {
 			typescript = { "prettier" },
 			elixir = { "mix" },
 			go = { "goimports", "gofmt" },
+			json = { "prettier" },
+			html = { "prettier" },
+			css = { "prettier" },
+			yaml = { "prettier" },
+			markdown = { "prettier" },
 		},
 	},
 }
