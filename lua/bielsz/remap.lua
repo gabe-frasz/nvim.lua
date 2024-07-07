@@ -7,7 +7,7 @@ local function getFileTypeComment(before, after)
 	if filetype == "lua" then
 		comment = "--"
 	end
-	if filetype == "elixir" or filetype == "python" or filetype == "bash" or filetype == "sh" then
+	if filetype == "elixir" or filetype == "python" or filetype == "bash" or filetype == "sh" or filetype == "yaml" then
 		comment = "#"
 	end
 	return before .. comment .. " " .. after
@@ -28,7 +28,7 @@ vim.keymap.set("n", "<leader>;", function()
 	return getFileTypeComment("_i", "<Esc>")
 end, { expr = true })
 vim.keymap.set("v", "<leader>;", function()
-	return getFileTypeComment("_i", "<Esc>")
+	return getFileTypeComment("_I", "<Esc>")
 end, { expr = true })
 
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
