@@ -45,3 +45,10 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<CR>")
 vim.keymap.set("n", "<leader>ma", "<cmd>Mason<CR>")
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
+
+vim.keymap.set("n", "<leader>Fd", function()
+	vim.b.disable_autoformat = true
+end)
+vim.keymap.set("n", "<leader>Fe", function()
+	vim.b.disable_autoformat = false
+end)
