@@ -24,12 +24,14 @@ return {
 			}
 		end,
 		formatters_by_ft = {
+			c = { "clang_format" },
+			cpp = { "clang_format" },
 			lua = { "stylua" },
-			javascript = { "prettier" },
-			typescript = { "prettier" },
+			javascript = { "biome" },
+			typescript = { "biome" },
+			json = { "biome" },
 			elixir = { "mix" },
 			go = { "goimports", "gofmt" },
-			json = { "prettier" },
 			html = { "prettier" },
 			css = { "prettier" },
 			yaml = { "prettier" },
