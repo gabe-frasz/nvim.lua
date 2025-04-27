@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-	color = color or "rose-pine"
+	color = color or "nordbones"
 	vim.cmd.colorscheme(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -28,25 +28,13 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.g.background = "dark"
-			vim.g.zenbones_solid_nr = true
-			vim.g.zenbones_darken_comments = 45
+			vim.g.nordbones = {
+				lighten_noncurrent_window = true,
+				italic_comments = false,
+			}
 		end,
 		init = function()
-			ColorMyPencils("zenbones")
-		end,
-	},
-	{
-		"olivercederborg/poimandres.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("poimandres").setup({
-				disable_background = true,
-				styles = {
-					italic = false,
-				},
-			})
+			ColorMyPencils("nordbones")
 		end,
 	},
 }
