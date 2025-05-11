@@ -1,6 +1,19 @@
 vim.opt.guicursor = ""
 vim.g.have_nerd_font = true
 
+vim.g.clipboard = {
+	name = "copyq",
+	copy = {
+		["+"] = "copyq add -",
+		["*"] = "copyq add -",
+	},
+	paste = {
+		["+"] = "copyq paste",
+		["*"] = "copyq paste",
+	},
+	cache_enabled = true,
+}
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
