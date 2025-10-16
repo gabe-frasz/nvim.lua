@@ -82,6 +82,14 @@ return {
 					})
 				end,
 			},
+			ensure_installed = {
+				"lua_ls",
+				"gopls",
+				"rust_analyzer",
+				"tsserver",
+				"biome",
+			},
+			automatic_installation = false,
 		})
 
 		local cmp = require("cmp")
@@ -92,7 +100,7 @@ return {
 				["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
-				["<C-Space>"] = cmp.mapping.complete(),
+				["<C-k>"] = cmp.mapping.complete(),
 			}),
 			sources = cmp.config.sources({
 				-- { name = "supermaven" },
