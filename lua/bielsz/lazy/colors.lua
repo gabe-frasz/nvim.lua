@@ -7,6 +7,18 @@ function ColorMyPencils(color)
 end
 
 return {
+  {
+    "ficcdaf/ashen.nvim",
+    lazy = false,
+    priority = 1000,
+    -- configuration is optional!
+    opts = {
+      -- your settings here
+    },
+    init = function()
+      ColorMyPencils("ashen")
+    end,
+  },
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
@@ -32,9 +44,6 @@ return {
 				lighten_noncurrent_window = true,
 				italic_comments = false,
 			}
-		end,
-		init = function()
-			ColorMyPencils("nordbones")
 		end,
 	},
 }
