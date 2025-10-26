@@ -2,14 +2,14 @@ vim.opt.guicursor = ""
 vim.g.have_nerd_font = true
 
 vim.g.clipboard = {
-	name = "copyq",
+	name = "wl-clipboard",
 	copy = {
-		["+"] = "copyq add -",
-		["*"] = "copyq add -",
+		["+"] = "wl-copy",
+		["*"] = "wl-copy",
 	},
 	paste = {
-		["+"] = "copyq paste",
-		["*"] = "copyq paste",
+		["+"] = "wl-paste",
+		["*"] = "wl-paste",
 	},
 	cache_enabled = true,
 }
