@@ -35,6 +35,8 @@ return {
 			css = { "prettier" },
 			yaml = { "prettier" },
 			markdown = { "prettier" },
+      bash = { "beautysh" },
+      sh = { "beautysh" },
 		},
 	},
 }
