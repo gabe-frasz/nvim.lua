@@ -69,9 +69,9 @@ return {
 				"stylua",
 				"gopls",
 				"rust_analyzer",
-				"tsserver",
 				"prettier",
 				"biome",
+				"tsgo",
 			},
 		})
 		require("mason-lspconfig").setup({
@@ -86,7 +86,6 @@ return {
 				"lua_ls",
 				"gopls",
 				"rust_analyzer",
-				"tsserver",
 				"biome",
 			},
 			automatic_installation = false,
@@ -119,6 +118,32 @@ return {
 				header = "",
 				prefix = "",
 			},
+		})
+
+		-- Set up tsgo manually since it's not natively supported by mason-lspconfig yet
+		local lspconfig = require("lspconfig")
+		local configs = require("lspconfig.configs")
+
+		if not configs.tsgo then
+			configs.tsgo = {
+				default_config = {
+					cmd = { "tsgo", "--lsp", "--stdio" },
+					filetypes = {
+						"javascript",
+						"javascriptreact",
+						"javascript.jsx",
+						"typescript",
+						"typescriptreact",
+						"typescript.tsx",
+					},
+					root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
+					single_file_support = true,
+				},
+			}
+		end
+
+		lspconfig.tsgo.setup({
+			capabilities = capabilities,
 		})
 	end,
 }
