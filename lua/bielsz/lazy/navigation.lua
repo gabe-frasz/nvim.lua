@@ -1,0 +1,87 @@
+return {
+	{
+		"theprimeagen/harpoon",
+		config = function()
+			local mark = require("harpoon.mark")
+			local ui = require("harpoon.ui")
+
+			vim.keymap.set("n", "<leader>a", mark.add_file)
+			vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+
+			vim.keymap.set("n", "<C-h>", function()
+				ui.nav_file(1)
+			end)
+			vim.keymap.set("n", "<C-j>", function()
+				ui.nav_file(2)
+			end)
+			vim.keymap.set("n", "<C-k>", function()
+				ui.nav_file(3)
+			end)
+			vim.keymap.set("n", "<C-l>", function()
+				ui.nav_file(4)
+			end)
+			vim.keymap.set("n", "<leader><C-h>", function()
+				ui.replace_at(1)
+			end)
+			vim.keymap.set("n", "<leader><C-t>", function()
+				ui.replace_at(2)
+			end)
+			vim.keymap.set("n", "<leader><C-n>", function()
+				ui.replace_at(3)
+			end)
+			vim.keymap.set("n", "<leader><C-s>", function()
+				ui.replace_at(4)
+			end)
+		end,
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		event = "VimEnter",
+		branch = "0.1.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+				cond = function()
+					return vim.fn.executable("make") == 1
+				end,
+			},
+			{ "nvim-telescope/telescope-ui-select.nvim" },
+			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+		},
+		config = function()
+			require("telescope").setup({
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown(),
+					},
+				},
+			})
+
+			pcall(require("telescope").load_extension, "fzf")
+			pcall(require("telescope").load_extension, "ui-select")
+
+			local builtin = require("telescope.builtin")
+			vim.keymap.set("n", "<leader>sh", builtin.help_tags)
+			vim.keymap.set("n", "<leader>sk", builtin.keymaps)
+			vim.keymap.set("n", "<leader>sf", builtin.find_files)
+			vim.keymap.set("n", "<leader>ss", builtin.builtin)
+			vim.keymap.set("n", "<leader>sw", builtin.grep_string)
+			vim.keymap.set("n", "<leader>sg", builtin.live_grep)
+			vim.keymap.set("n", "<leader>sd", builtin.diagnostics)
+			vim.keymap.set("n", "<leader>sr", builtin.resume)
+			vim.keymap.set("n", "<leader>s.", builtin.oldfiles)
+			vim.keymap.set("n", "<leader>sb", builtin.buffers)
+			vim.keymap.set("n", "<leader>/", function()
+				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+					winblend = 10,
+					previewer = false,
+				}))
+			end)
+			vim.keymap.set("n", "<leader>sn", function()
+				builtin.find_files({ cwd = vim.fn.stdpath("config") })
+			end)
+		end,
+	},
+}
