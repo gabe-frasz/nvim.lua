@@ -1,19 +1,6 @@
 vim.opt.guicursor = ""
 vim.g.have_nerd_font = true
 
-vim.g.clipboard = {
-	name = "wl-clipboard",
-	copy = {
-		["+"] = "wl-copy",
-		["*"] = "wl-copy",
-	},
-	paste = {
-		["+"] = "wl-paste",
-		["*"] = "wl-paste",
-	},
-	cache_enabled = true,
-}
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
