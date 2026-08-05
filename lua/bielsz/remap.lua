@@ -12,6 +12,7 @@ vim.keymap.set("n", "<leader>rr", ":%s/\\<<C-r><C-w>\\>//g<left><left>", { desc 
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("n", "<leader>w", "<C-w>w")
 vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<CR>")
+-- { "<Esc><Esc>", "<C-\\><C-n>", mode = "t", desc = "Terminal Normal Mode" },
 
 vim.keymap.set("n", "<leader>;", "gcc", { remap = true, desc = "Toggle line comment" })
 vim.keymap.set("v", "<leader>;", "gc", { remap = true, desc = "Toggle comment selection" })
