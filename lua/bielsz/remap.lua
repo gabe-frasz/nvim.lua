@@ -23,6 +23,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<leader>rr", ":%s/\\<<C-r><C-w>\\>//g<left><left>")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("n", "<leader>w", "<C-w>w")
+vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<CR>")
 
 vim.keymap.set("n", "<leader>;", function()
 	return getFileTypeComment("_i", "<Esc>")
@@ -30,25 +31,3 @@ end, { expr = true })
 vim.keymap.set("v", "<leader>;", function()
 	return getFileTypeComment("_I", "<Esc>")
 end, { expr = true })
-
-vim.keymap.set("n", "K", vim.lsp.buf.hover)
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration)
-
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
-
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
-vim.keymap.set("n", "<leader>lz", "<cmd>Lazy<CR>")
-vim.keymap.set("n", "<leader>ma", "<cmd>Mason<CR>")
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
-
-vim.keymap.set("n", "<leader>Fd", function()
-	vim.b.disable_autoformat = true
-end)
-vim.keymap.set("n", "<leader>Fe", function()
-	vim.b.disable_autoformat = false
-end)

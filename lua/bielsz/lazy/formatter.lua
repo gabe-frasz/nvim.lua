@@ -1,7 +1,6 @@
 return {
 	{
 		"stevearc/conform.nvim",
-		lazy = false,
 		keys = {
 			{
 				"<leader>f",
@@ -9,6 +8,21 @@ return {
 					require("conform").format({ async = true, lsp_fallback = true })
 				end,
 				mode = "",
+				desc = "Format buffer",
+			},
+			{
+				"<leader>Fd",
+				function()
+					vim.b.disable_autoformat = true
+				end,
+				desc = "Disable autoformat for buffer",
+			},
+			{
+				"<leader>Fe",
+				function()
+					vim.b.disable_autoformat = false
+				end,
+				desc = "Enable autoformat for buffer",
 			},
 		},
 		opts = {

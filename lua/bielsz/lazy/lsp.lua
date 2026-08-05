@@ -28,6 +28,9 @@ return {
 				map("<leader>D", tl_builtin.lsp_type_definitions)
 				map("<leader>ds", tl_builtin.lsp_document_symbols)
 				map("<leader>ws", tl_builtin.lsp_dynamic_workspace_symbols)
+				map("K", vim.lsp.buf.hover)
+				map("<leader>ca", vim.lsp.buf.code_action)
+				map("<leader>gD", vim.lsp.buf.declaration)
 
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 				if client and client.server_capabilities.documentHighlightProvider then
@@ -119,6 +122,12 @@ return {
 				prefix = "",
 			},
 		})
+
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+		vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+		vim.keymap.set("n", "<leader>ma", "<cmd>Mason<CR>")
 
 		-- Set up tsgo manually since it's not natively supported by mason-lspconfig yet
 		local lspconfig = require("lspconfig")
