@@ -118,6 +118,11 @@ return {
 		})
 
 		vim.diagnostic.config({
+			jump = {
+				on_jump = function()
+					vim.diagnostic.open_float()
+				end,
+			},
 			float = {
 				focusable = false,
 				style = "minimal",
@@ -128,8 +133,12 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-		vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+		vim.keymap.set("n", "[d", function()
+			vim.diagnostic.jump({ count = -1 })
+		end)
+		vim.keymap.set("n", "]d", function()
+			vim.diagnostic.jump({ count = 1 })
+		end)
 		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 		vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 		vim.keymap.set("n", "<leader>ma", "<cmd>Mason<CR>")
