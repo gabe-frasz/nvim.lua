@@ -157,5 +157,18 @@ return {
 			root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
 		})
 		vim.lsp.enable("tsgo")
+
+		vim.lsp.config("lua_ls", {
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+					workspace = {
+						checkThirdParty = false,
+					},
+				},
+			},
+		})
 	end,
 }
