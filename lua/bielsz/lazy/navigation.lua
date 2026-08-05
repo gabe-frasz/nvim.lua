@@ -38,10 +38,7 @@ return {
 		config = function()
 			require("telescope").setup({
 				defaults = {
-					file_ignore_patterns = {
-						"%.git/",
-						"node_modules/",
-					},
+					file_ignore_patterns = { "%.git/", "node_modules/" },
 				},
 				pickers = {
 					find_files = {
@@ -92,6 +89,9 @@ return {
 				["<C-h>"] = false,
 				["<C-l>"] = false,
 			},
+      view_options = {
+        show_hidden = true,
+      },
 		},
 		-- Optional dependencies
 		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
