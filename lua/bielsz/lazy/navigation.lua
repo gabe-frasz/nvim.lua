@@ -8,30 +8,15 @@ return {
 			vim.keymap.set("n", "<leader>a", mark.add_file)
 			vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 
-			vim.keymap.set("n", "<C-h>", function()
-				ui.nav_file(1)
-			end)
-			vim.keymap.set("n", "<C-j>", function()
-				ui.nav_file(2)
-			end)
-			vim.keymap.set("n", "<C-k>", function()
-				ui.nav_file(3)
-			end)
-			vim.keymap.set("n", "<C-l>", function()
-				ui.nav_file(4)
-			end)
-			vim.keymap.set("n", "<leader><C-h>", function()
-				ui.replace_at(1)
-			end)
-			vim.keymap.set("n", "<leader><C-t>", function()
-				ui.replace_at(2)
-			end)
-			vim.keymap.set("n", "<leader><C-n>", function()
-				ui.replace_at(3)
-			end)
-			vim.keymap.set("n", "<leader><C-s>", function()
-				ui.replace_at(4)
-			end)
+			for i, km in ipairs({ "<C-h>", "<C-j>", "<C-k>", "<C-l>" }) do
+				vim.keymap.set("n", km, function()
+				  ui.nav_file(i)
+				end)
+
+			  vim.keymap.set("n", "<leader>" .. km, function()
+          mark.set_current_at(i)
+        end)
+			end
 		end,
 	},
 	{
@@ -83,5 +68,24 @@ return {
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
 			end)
 		end,
+	},
+	{
+		"stevearc/oil.nvim",
+		---@module 'oil'
+		---@type oil.SetupOpts
+		keys = {
+			{ "<leader>pv", "<cmd>Oil<cr>", desc = "Open Oil explorer" },
+		},
+		opts = {
+			keymaps = {
+				["<C-h>"] = false,
+				["<C-l>"] = false,
+			},
+		},
+		-- Optional dependencies
+		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+		-- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+		lazy = false,
 	},
 }
