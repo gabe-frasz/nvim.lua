@@ -64,25 +64,30 @@ return {
 			require("cmp_nvim_lsp").default_capabilities()
 		)
 
+		vim.lsp.config("*", {
+			capabilities = capabilities,
+		})
+
 		require("fidget").setup({})
 		require("mason").setup()
 		require("mason-tool-installer").setup({
 			ensure_installed = {
-				"lua_ls",
+				"lua-language-server",
 				"stylua",
 				"gopls",
-				"rust_analyzer",
+				"rust-analyzer",
 				"prettier",
 				"biome",
 				"tsgo",
+			},
+			integrations = {
+				["mason-lspconfig"] = false,
 			},
 		})
 		require("mason-lspconfig").setup({
 			handlers = {
 				function(server_name)
-					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
-					})
+					vim.lsp.enable(server_name)
 				end,
 			},
 			ensure_installed = {
@@ -130,29 +135,18 @@ return {
 		vim.keymap.set("n", "<leader>ma", "<cmd>Mason<CR>")
 
 		-- Set up tsgo manually since it's not natively supported by mason-lspconfig yet
-		local lspconfig = require("lspconfig")
-		local configs = require("lspconfig.configs")
-
-		if not configs.tsgo then
-			configs.tsgo = {
-				default_config = {
-					cmd = { "tsgo", "--lsp", "--stdio" },
-					filetypes = {
-						"javascript",
-						"javascriptreact",
-						"javascript.jsx",
-						"typescript",
-						"typescriptreact",
-						"typescript.tsx",
-					},
-					root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", "package.json", ".git"),
-					single_file_support = true,
-				},
-			}
-		end
-
-		lspconfig.tsgo.setup({
-			capabilities = capabilities,
+		vim.lsp.config("tsgo", {
+			cmd = { "tsgo", "--lsp", "--stdio" },
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"javascript.jsx",
+				"typescript",
+				"typescriptreact",
+				"typescript.tsx",
+			},
+			root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
 		})
+		vim.lsp.enable("tsgo")
 	end,
 }
