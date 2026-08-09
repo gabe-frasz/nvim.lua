@@ -10,12 +10,12 @@ return {
 
 			for i, km in ipairs({ "<C-h>", "<C-j>", "<C-k>", "<C-l>" }) do
 				vim.keymap.set("n", km, function()
-				  ui.nav_file(i)
+					ui.nav_file(i)
 				end)
 
-			  vim.keymap.set("n", "<leader>" .. km, function()
-          mark.set_current_at(i)
-        end)
+				vim.keymap.set("n", "<leader>" .. km, function()
+					mark.set_current_at(i)
+				end)
 			end
 		end,
 	},
@@ -89,14 +89,34 @@ return {
 				["<C-h>"] = false,
 				["<C-l>"] = false,
 			},
-      view_options = {
-        show_hidden = true,
-      },
+			view_options = {
+				show_hidden = true,
+			},
 		},
 		-- Optional dependencies
 		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
 		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
 		-- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
 		lazy = false,
+	},
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {},
+		keys = {
+			{
+				"<leader>sj",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+				desc = "Flash",
+			},
+			-- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			-- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+			-- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+			-- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+		},
 	},
 }
