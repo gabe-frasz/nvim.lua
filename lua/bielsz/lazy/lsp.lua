@@ -76,9 +76,9 @@ return {
 				"stylua",
 				"gopls",
 				"rust-analyzer",
-				"prettier",
-				"biome",
-				"tsgo",
+				"tsc",
+        "oxfmt",
+        "oxlint",
 			},
 			integrations = {
 				["mason-lspconfig"] = false,
@@ -89,12 +89,6 @@ return {
 				function(server_name)
 					vim.lsp.enable(server_name)
 				end,
-			},
-			ensure_installed = {
-				"lua_ls",
-				"gopls",
-				"rust_analyzer",
-				"biome",
 			},
 			automatic_installation = false,
 		})
@@ -143,9 +137,9 @@ return {
 		vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 		vim.keymap.set("n", "<leader>ma", "<cmd>Mason<CR>")
 
-		-- Set up tsgo manually since it's not natively supported by mason-lspconfig yet
-		vim.lsp.config("tsgo", {
-			cmd = { "tsgo", "--lsp", "--stdio" },
+		-- Set up tsc manually since it's not natively supported by mason-lspconfig yet
+		vim.lsp.config("tsc", {
+			cmd = { "tsc", "--lsp", "--stdio" },
 			filetypes = {
 				"javascript",
 				"javascriptreact",
@@ -156,7 +150,7 @@ return {
 			},
 			root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
 		})
-		vim.lsp.enable("tsgo")
+		vim.lsp.enable("tsc")
 
 		vim.lsp.config("lua_ls", {
 			settings = {
@@ -166,6 +160,19 @@ return {
 					},
 					workspace = {
 						checkThirdParty = false,
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("rust_analyzer", {
+			settings = {
+				["rust-analyzer"] = {
+					diagnostics = {
+						experimental = {
+							-- enable instant native syntax checking on keypress
+							enable = true,
+						},
 					},
 				},
 			},
