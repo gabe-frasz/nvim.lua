@@ -77,8 +77,8 @@ return {
 				"gopls",
 				"rust-analyzer",
 				"tsc",
-        "oxfmt",
-        "oxlint",
+				"oxfmt",
+				"oxlint",
 			},
 			integrations = {
 				["mason-lspconfig"] = false,
@@ -174,6 +174,18 @@ return {
 							enable = true,
 						},
 					},
+				},
+			},
+		})
+
+		vim.lsp.config("zls", {
+			settings = {
+				zls = {
+					enable_snippets = true,
+					enable_autofix = true,
+					enable_import_detection = true,
+					warn_style = true,
+					highlight_global_var_declarations = true,
 				},
 			},
 		})
