@@ -41,6 +41,7 @@ return {
 				markdown = { "oxfmt" },
 				bash = { "beautysh" },
 				sh = { "beautysh" },
+        clojure = {"cljfmt"},
 			},
 		},
 	},
